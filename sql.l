@@ -3,6 +3,12 @@
     #include <string.h>
     char* keywords[] = { "SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE", "CREATE", "TABLE", "VALUES", "AND", "OR", "NOT", "ORDER", "BY", "GROUP", "HAVING", "JOIN", "ON", "AS", "NULL", "INTO", "SET", "DISTINCT" };
     int keyword_count = sizeof(keywords) / sizeof(keywords[0]);
+    int is_keyword(char* word){
+        for(int i = 0; i < keyword_count; i++){
+            if(strcmp(keyword[i], word) == 0) return 1;
+        }
+        return 0;
+    }
 
 %}
 
