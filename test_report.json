@@ -1,0 +1,159 @@
+{
+  "project": "SQL Lexical Analyzer",
+  "test_count": 10,
+  "passed": 10,
+  "failed": 0,
+  "tests": [
+    {
+      "test": "test_arithmetic_operators",
+      "status": "PASS",
+      "input": "a + b - c * d / e % f",
+      "expected_fragments": [
+        "ARITHMETIC OPERATOR: +",
+        "ARITHMETIC OPERATOR: -",
+        "ARITHMETIC OPERATOR: *",
+        "ARITHMETIC OPERATOR: /",
+        "ARITHMETIC OPERATOR: %"
+      ],
+      "stdout": "IDENTIFIER: a  ARITHMETIC OPERATOR: +  IDENTIFIER: b  ARITHMETIC OPERATOR: -  IDENTIFIER: c  ARITHMETIC OPERATOR: *  IDENTIFIER: d  ARITHMETIC OPERATOR: /  IDENTIFIER: e  ARITHMETIC OPERATOR: %  IDENTIFIER: f ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_assignment_example",
+      "status": "PASS",
+      "input": "SELECT name, age FROM Students WHERE age >= 18;",
+      "expected_fragments": [
+        "KEYWORD: SELECT",
+        "IDENTIFIER: name",
+        "PUNCT: ,",
+        "IDENTIFIER: age",
+        "KEYWORD: FROM",
+        "IDENTIFIER: Students",
+        "KEYWORD: WHERE",
+        "COMPARISON OPERATOR: >=",
+        "NUMBER: 18",
+        "PUNCT: ;"
+      ],
+      "stdout": "KEYWORD: SELECT  IDENTIFIER: name PUNCT: ,  IDENTIFIER: age  KEYWORD: FROM  IDENTIFIER: Students  KEYWORD: WHERE  IDENTIFIER: age  COMPARISON OPERATOR: >=  NUMBER: 18 PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_comparison_operators",
+      "status": "PASS",
+      "input": "a = b AND c <> d AND e != f AND g < h AND i > j AND k <= l AND m >= n",
+      "expected_fragments": [
+        "COMPARISON OPERATOR: =",
+        "COMPARISON OPERATOR: <>",
+        "COMPARISON OPERATOR: !=",
+        "COMPARISON OPERATOR: <",
+        "COMPARISON OPERATOR: >",
+        "COMPARISON OPERATOR: <=",
+        "COMPARISON OPERATOR: >="
+      ],
+      "stdout": "IDENTIFIER: a  COMPARISON OPERATOR: =  IDENTIFIER: b  KEYWORD: AND  IDENTIFIER: c  COMPARISON OPERATOR: <>  IDENTIFIER: d  KEYWORD: AND  IDENTIFIER: e  COMPARISON OPERATOR: !=  IDENTIFIER: f  KEYWORD: AND  IDENTIFIER: g  COMPARISON OPERATOR: <  IDENTIFIER: h  KEYWORD: AND  IDENTIFIER: i  COMPARISON OPERATOR: >  IDENTIFIER: j  KEYWORD: AND  IDENTIFIER: k  COMPARISON OPERATOR: <=  IDENTIFIER: l  KEYWORD: AND  IDENTIFIER: m  COMPARISON OPERATOR: >=  IDENTIFIER: n ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_integer_and_float",
+      "status": "PASS",
+      "input": "SELECT 123, 45.67;",
+      "expected_fragments": [
+        "NUMBER: 123",
+        "NUMBER: 45.67",
+        "PUNCT: ,",
+        "PUNCT: ;"
+      ],
+      "stdout": "KEYWORD: SELECT  NUMBER: 123 PUNCT: ,  NUMBER: 45.67 PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_keywords_and_identifiers",
+      "status": "PASS",
+      "input": "SELECT first_name FROM Students;",
+      "expected_fragments": [
+        "KEYWORD: SELECT",
+        "IDENTIFIER: first_name",
+        "KEYWORD: FROM",
+        "IDENTIFIER: Students"
+      ],
+      "stdout": "KEYWORD: SELECT  IDENTIFIER: first_name  KEYWORD: FROM  IDENTIFIER: Students PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_multiline_comment",
+      "status": "PASS",
+      "input": "SELECT name; /* first line\nsecond line */ SELECT age;",
+      "expected_fragments": [
+        "KEYWORD: SELECT",
+        "MULTI LINE COMMENT",
+        "IDENTIFIER: age"
+      ],
+      "stdout": "KEYWORD: SELECT  IDENTIFIER: name PUNCT: ;  MULTI LINE COMMENT KEYWORD: SELECT  IDENTIFIER: age PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_punctuation",
+      "status": "PASS",
+      "input": "SELECT t.name, (t.age);",
+      "expected_fragments": [
+        "PUNCT: .",
+        "PUNCT: ,",
+        "PUNCT: (",
+        "PUNCT: )",
+        "PUNCT: ;"
+      ],
+      "stdout": "KEYWORD: SELECT  IDENTIFIER: t PUNCT: . IDENTIFIER: name PUNCT: ,  PUNCT: ( IDENTIFIER: t PUNCT: . IDENTIFIER: age PUNCT: ) PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_quoted_strings",
+      "status": "PASS",
+      "input": "SELECT 'Ali', \"test\";",
+      "expected_fragments": [
+        "STRING LITERAL: 'Ali'",
+        "STRING LITERAL: \"test\"",
+        "PUNCT: ,",
+        "PUNCT: ;"
+      ],
+      "stdout": "KEYWORD: SELECT  STRING LITERAL: 'Ali' PUNCT: ,  STRING LITERAL: \"test\" PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_single_line_comment",
+      "status": "PASS",
+      "input": "SELECT name -- comment\nFROM Students;",
+      "expected_fragments": [
+        "KEYWORD: SELECT",
+        "SINGLE LINE COMMENT",
+        "KEYWORD: FROM",
+        "IDENTIFIER: Students"
+      ],
+      "stdout": "KEYWORD: SELECT  IDENTIFIER: name  SINGLE LINE COMMENTKEYWORD: FROM  IDENTIFIER: Students PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    },
+    {
+      "test": "test_whitespace_is_ignored",
+      "status": "PASS",
+      "input": "SELECT\tname\r\nFROM   Students ;",
+      "expected_fragments": [
+        "KEYWORD: SELECT",
+        "IDENTIFIER: name",
+        "KEYWORD: FROM",
+        "IDENTIFIER: Students",
+        "PUNCT: ;"
+      ],
+      "stdout": "KEYWORD: SELECT \tIDENTIFIER: name \n\nKEYWORD: FROM    IDENTIFIER: Students  PUNCT: ; ",
+      "stderr": "",
+      "errors": []
+    }
+  ]
+}
