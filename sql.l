@@ -44,6 +44,14 @@ single_quotation ['][^']*[']
     printf("NUMBER: %s", yytext);
 }
 
+"<>"|"="|"!="|"<"|">"|"<="|">=" {
+    printf("COMPARISON OPERATOR: %s", yytext);
+}
+
+"+"|"-"|"/"|"*"|"%" {
+    printf("ARITHMETIC OPERATOR: %s", yytext);
+}
+
 %%
 
 int yywrap(void) {return 1;}
