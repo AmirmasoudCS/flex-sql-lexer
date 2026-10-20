@@ -68,6 +68,7 @@ single_quotation ['][^']*[']
 
 <SINGLE_LINE_COMMENT>[\n] {
     printf("SINGLE LINE COMMENT");
+    BEGIN(INITIAL);
 }
 
 "/*" {

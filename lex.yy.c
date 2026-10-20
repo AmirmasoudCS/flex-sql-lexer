@@ -833,34 +833,35 @@ YY_RULE_SETUP
 #line 69 "sql.l"
 {
     printf("SINGLE LINE COMMENT");
+    BEGIN(INITIAL);
 }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 73 "sql.l"
+#line 74 "sql.l"
 {
     BEGIN(MULTI_LINE_COMMENT);
 }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 77 "sql.l"
+#line 78 "sql.l"
 {}
 	YY_BREAK
 case 14:
 /* rule 14 can match eol */
 YY_RULE_SETUP
-#line 79 "sql.l"
+#line 80 "sql.l"
 {}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 81 "sql.l"
+#line 82 "sql.l"
 {}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 83 "sql.l"
+#line 84 "sql.l"
 {
     printf("MULTI LINE COMMENT");
     BEGIN(INITIAL);
@@ -868,10 +869,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 88 "sql.l"
+#line 89 "sql.l"
 ECHO;
 	YY_BREAK
-#line 874 "lex.yy.c"
+#line 875 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(SINGLE_LINE_COMMENT):
 case YY_STATE_EOF(MULTI_LINE_COMMENT):
@@ -1878,7 +1879,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 88 "sql.l"
+#line 89 "sql.l"
 
 
 int yywrap(void) {return 1;}
