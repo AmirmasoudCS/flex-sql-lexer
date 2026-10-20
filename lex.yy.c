@@ -732,7 +732,7 @@ YY_RULE_SETUP
 #line 19 "sql.l"
 {
     if(is_keyword(yytext)) printf("KEYWORD: %s ", yytext);
-    printf("IDENTIFIER: %s ", yytext);
+    else printf("IDENTIFIER: %s ", yytext);
 }
 	YY_BREAK
 case 2:
