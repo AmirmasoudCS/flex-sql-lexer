@@ -57,3 +57,4 @@ dkms.conf
 # artifacts
 *.pdf
 *.docx
+*.zip
