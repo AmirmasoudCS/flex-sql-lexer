@@ -17,8 +17,8 @@ identifier [a-zA-Z_][a-zA-Z0-9_]*
 %%
 
 {identifier} {
-    if(is_keyword(yytext)) printf("KEYWORD: %s", yytext);
-    printf("IDENTIFIER: %s", yytext);
+    if(is_keyword(yytext)) printf("KEYWORD: %s ", yytext);
+    printf("IDENTIFIER: %s ", yytext);
 }
 
 %%
