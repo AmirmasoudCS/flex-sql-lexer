@@ -12,6 +12,10 @@
 
 %}
 
+%x SINGLE_LINE_COMMENT
+
+%x MULTI_LINE_COMMENT
+
 identifier [a-zA-Z_][a-zA-Z0-9_]*
 digit [0-9]
 
@@ -24,11 +28,11 @@ single_quotation ['][^']*[']
 %%
 
 {double_quotation} {
-    printf("STRING LITERAL: %s", yytext);
+    printf("STRING LITERAL: %s ", yytext);
 }
 
 {single_quotation} {
-    printf("STRING LITERAL: %s", yytext);
+    printf("STRING LITERAL: %s ", yytext);
 }
 
 {identifier} {
@@ -37,23 +41,48 @@ single_quotation ['][^']*[']
 }
 
 {integer} {
-    printf("NUMBER: %s", yytext);
+    printf("NUMBER: %s ", yytext);
 }
 
 {float} {
-    printf("NUMBER: %s", yytext);
+    printf("NUMBER: %s ", yytext);
 }
 
 "<>"|"="|"!="|"<"|">"|"<="|">=" {
-    printf("COMPARISON OPERATOR: %s", yytext);
+    printf("COMPARISON OPERATOR: %s ", yytext);
 }
 
 "+"|"-"|"/"|"*"|"%" {
-    printf("ARITHMETIC OPERATOR: %s", yytext);
+    printf("ARITHMETIC OPERATOR: %s ", yytext);
 }
 
 [;,().] {
-    printf("PUNCT: %s", yytext);
+    printf("PUNCT: %s ", yytext);
+}
+
+"--" {
+    BEGIN(SINGLE_LINE_COMMENT);
+}
+
+<SINGLE_LINE_COMMENT>[^\n] {}
+
+<SINGLE_LINE_COMMENT>[\n] {
+    printf("SINGLE LINE COMMENT");
+}
+
+"/*" {
+    BEGIN(MULTI_LINE_COMMENT);
+}
+
+<MULTI_LINE_COMMENT>[^*\n]+ {}
+
+<MULTI_LINE_COMMENT>\n {}
+
+<MULTI_LINE_COMMENT>"*" {}
+
+<MULTI_LINE_COMMENT>"*/" {
+    printf("MULTI LINE COMMENT");
+    BEGIN(INITIAL);
 }
 
 %%
