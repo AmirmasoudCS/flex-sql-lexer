@@ -1,3 +1,7 @@
+<div align="center">
+    <img src="./assets/full.png" width="100%">
+</div>
+
 # flex-sql-lexer
 
 A lexical analyzer for SQL statements implemented in C using Flex.
