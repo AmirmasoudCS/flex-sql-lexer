@@ -52,6 +52,10 @@ single_quotation ['][^']*[']
     printf("ARITHMETIC OPERATOR: %s", yytext);
 }
 
+[;,().] {
+    printf("PUNCT: %s", yytext);
+}
+
 %%
 
 int yywrap(void) {return 1;}
