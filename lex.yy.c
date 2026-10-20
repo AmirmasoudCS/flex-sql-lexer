@@ -439,8 +439,18 @@ char *yytext;
 #line 1 "sql.l"
 #line 2 "sql.l"
     #include <stdio.h>    
-#line 442 "lex.yy.c"
-#line 443 "lex.yy.c"
+    #include <string.h>
+    char* keywords[] = { "SELECT", "FROM", "WHERE", "INSERT", "UPDATE", "DELETE", "CREATE", "TABLE", "VALUES", "AND", "OR", "NOT", "ORDER", "BY", "GROUP", "HAVING", "JOIN", "ON", "AS", "NULL", "INTO", "SET", "DISTINCT" };
+    int keyword_count = sizeof(keywords) / sizeof(keywords[0]);
+    int is_keyword(char* word){
+        for(int i = 0; i < keyword_count; i++){
+            if(strcmp(keywords[i], word) == 0) return 1;
+        }
+        return 0;
+    }
+
+#line 452 "lex.yy.c"
+#line 453 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -657,10 +667,10 @@ YY_DECL
 		}
 
 	{
-#line 7 "sql.l"
+#line 17 "sql.l"
 
 
-#line 663 "lex.yy.c"
+#line 673 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -719,15 +729,18 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 9 "sql.l"
-{ printf("IDENTIFIER"); }
+#line 19 "sql.l"
+{
+    if(is_keyword(yytext)) printf("KEYWORD: %s", yytext);
+    printf("IDENTIFIER: %s", yytext);
+}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 11 "sql.l"
+#line 24 "sql.l"
 ECHO;
 	YY_BREAK
-#line 730 "lex.yy.c"
+#line 743 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1732,7 +1745,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 11 "sql.l"
+#line 24 "sql.l"
 
 
 int yywrap(void) {return 1;}

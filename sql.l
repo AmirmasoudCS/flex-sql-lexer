@@ -5,7 +5,7 @@
     int keyword_count = sizeof(keywords) / sizeof(keywords[0]);
     int is_keyword(char* word){
         for(int i = 0; i < keyword_count; i++){
-            if(strcmp(keyword[i], word) == 0) return 1;
+            if(strcmp(keywords[i], word) == 0) return 1;
         }
         return 0;
     }
@@ -16,7 +16,10 @@ identifier [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 
-{identifier}                                    { printf("IDENTIFIER"); }
+{identifier} {
+    if(is_keyword(yytext)) printf("KEYWORD: %s", yytext);
+    printf("IDENTIFIER: %s", yytext);
+}
 
 %%
 
