@@ -15,10 +15,21 @@
 identifier [a-zA-Z_][a-zA-Z0-9_]*
 digit [0-9]
 
-integer ([1-9][0-9]*|[0])
-float ([1-9][0-9]*[.][0-9]*|[0])
+integer [0-9]+
+float [0-9]+"."[0-9]+
+
+double_quotation ["][^"]*["]
+single_quotation ['][^']*[']
 
 %%
+
+{double_quotation} {
+    printf("STRING LITERAL: %s", yytext);
+}
+
+{single_quotation} {
+    printf("STRING LITERAL: %s", yytext);
+}
 
 {identifier} {
     if(is_keyword(yytext)) printf("KEYWORD: %s ", yytext);
